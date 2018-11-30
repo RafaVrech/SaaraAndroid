@@ -6,12 +6,21 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.example.rafavrech.saara.adapter.AtividadeResumoAdapter;
+import com.example.rafavrech.saara.model.Atividade;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         Fragment homeFragment = HomeFragment.newInstance();
         openFragment(homeFragment);
+
+
     }
 
 }
