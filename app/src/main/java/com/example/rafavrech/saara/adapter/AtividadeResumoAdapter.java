@@ -1,13 +1,17 @@
 package com.example.rafavrech.saara.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.rafavrech.saara.DialogAnotacao;
 import com.example.rafavrech.saara.R;
 import com.example.rafavrech.saara.model.Atividade;
 import com.example.rafavrech.saara.view.AtividadeResumoViewHolder;
@@ -21,7 +25,7 @@ public class AtividadeResumoAdapter extends RecyclerView.Adapter<AtividadeResumo
 
     private List<Atividade> atividades;
     Context context;
-
+    String titulo, mensagem;
 
     @Override
     public AtividadeResumoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,6 +48,10 @@ public class AtividadeResumoAdapter extends RecyclerView.Adapter<AtividadeResumo
             public void onClick(View v) {
                 String productName = atividades.get(position).getProductName().toString();
                 Toast.makeText(context, productName + " is selected", Toast.LENGTH_SHORT).show();
+                DialogFragment dialog = new DialogAnotacao().newInstance("","");
+
+                dialog.show(((AppCompatActivity)context).getSupportFragmentManager(), "MyDialogFragmentTag");
+
             }
         });
     }

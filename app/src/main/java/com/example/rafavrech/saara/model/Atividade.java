@@ -1,5 +1,6 @@
 package com.example.rafavrech.saara.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,4 +12,6 @@ public class Atividade {
     public String productPrice;
     public String productWeight;
     public String productQty;
+
+
 }

@@ -31,8 +31,19 @@ public class HomeFragment extends Fragment {
 
         //Populate the products
         mProductList = new ArrayList<>();
-        mProductList.add(new Atividade(R.drawable.ic_dashboard_black_24dp,"Mango","Rs. 150", "1 kg", "5"));
-        mProductList.add(new Atividade(R.drawable.ic_dashboard_black_24dp,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Mango","Rs. 150", "1 kg", "5"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
 
         //set adapter to recyclerview
         mAdapter = new AtividadeResumoAdapter(mProductList, this.getContext());
