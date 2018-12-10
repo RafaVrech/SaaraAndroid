@@ -8,8 +8,10 @@ import android.widget.TextView;
 import com.example.rafavrech.saara.R;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class AtividadeResumoViewHolder extends RecyclerView.ViewHolder  {
     ImageView imageProductImage;
     TextView txtProductName;

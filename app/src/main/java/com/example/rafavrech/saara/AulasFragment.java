@@ -49,7 +49,7 @@ public class AulasFragment extends Fragment {
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
 
         //set adapter to recyclerview
-        mAdapter = new AtividadeResumoAdapter(mProductList, this.getContext());
+        mAdapter = new AtividadeResumoAdapter(mProductList, this.getContext(),"titulo", "mensagem");
         mRecyclerView.setAdapter(mAdapter);
 
         return thisView;

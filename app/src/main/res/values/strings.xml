@@ -3,4 +3,16 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Aulas</string>
     <string name="title_notifications">Anotações</string>
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Registrar</string>
+    <string name="error_invalid_email">Usuario invalido</string>
+    <string name="error_invalid_password">Minimo de 4 caracteres na senha</string>
+    <string name="error_incorrect_password">Senha Incorreta</string>
+    <string name="error_field_required">Campo Obrigatorio</string>
+    <string name="permission_rationale">"Permissao de contatos requerida para sugerir emails."
+    </string>
 </resources>
