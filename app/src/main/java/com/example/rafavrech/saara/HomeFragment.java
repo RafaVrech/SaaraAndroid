@@ -1,5 +1,6 @@
 package com.example.rafavrech.saara;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.rafavrech.saara.adapter.AtividadeResumoAdapter;
 import com.example.rafavrech.saara.model.Atividade;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +47,7 @@ public class HomeFragment extends Fragment {
 
         //Populate the products
         listaItens = new ArrayList<>();
-/*        listaItens.add(new Atividade(R.drawable.ic_327116,"Mango","Rs. 150", "1 kg", "5"));
+/*
         listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
         listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
         listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
@@ -58,9 +61,25 @@ public class HomeFragment extends Fragment {
         listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
         listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));*/
 
-        //set adapter to recyclerview
-        mAdapter = new AtividadeResumoAdapter(listaItens, this.getContext(), "titulo", "mensagem");
-        mRecyclerView.setAdapter(mAdapter);
+
+
+
+
+
+
+
+        Button botaoRefresh = (Button) thisView.findViewById(R.id.btnRefresh);
+        botaoRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+            }
+        });
+
+
+
 
 
 
@@ -87,8 +106,19 @@ public class HomeFragment extends Fragment {
                             if(response.getInt("code") == 0)
                             {
                                 System.out.println("*****************************************************");
-                                System.out.println(response);//TODO PAREI AQUi
+                                System.out.println(response);//TODO PAREI AQUI
+
+                                JSONArray arrayMateriaUsuario = response.getJSONArray("body");
+                                for(int i= 0; i < arrayMateriaUsuario.length(); i++)
+                                {
+                                    String nome =((JSONObject) arrayMateriaUsuario.get(i)).getJSONObject("materia").getString("nome");
+                                    listaItens.add(new Atividade(R.drawable.ic_327116, nome,"Rs. 150", "1 kg", "5"));
+                                }
+
                                 System.out.println("*****************************************************");
+                            }else
+                            {
+                                Toast.makeText(getActivity(), "Erro " + response.getInt("code") + ": " + response.getString("error"), Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -103,6 +133,12 @@ public class HomeFragment extends Fragment {
             }
         });
         queue.add(request);
+
+
+
+        //set adapter to recyclerview
+        mAdapter = new AtividadeResumoAdapter(listaItens, this.getContext(), "titulo", "mensagem");
+        mRecyclerView.setAdapter(mAdapter);
 
         return thisView;
     }

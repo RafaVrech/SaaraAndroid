@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -321,7 +321,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             parametrosReq.put("email", mEmail);
             parametrosReq.put("senha", mPassword);
-            parametrosReq.put("method", "login");
 
             CustomJsonObjectRequest request = new CustomJsonObjectRequest(
                     Request.Method.POST,
@@ -331,7 +330,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.i("Script","SUCCESS: " + response);
-                    System.out.println("*****************************************************");
                     System.out.println(response);
 
                     try {
@@ -339,6 +337,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         {
                             finish();
                             startActivity( new Intent(LoginActivity.this, MainActivity.class));
+                        }else
+                        {
+                            Toast.makeText(LoginActivity.this, "Erro " + response.getInt("code") + ": " + response.getString("error"), Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

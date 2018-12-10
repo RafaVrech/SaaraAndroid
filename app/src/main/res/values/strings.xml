@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Aulas</string>
     <string name="title_notifications">Anotações</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Saara</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha</string>
