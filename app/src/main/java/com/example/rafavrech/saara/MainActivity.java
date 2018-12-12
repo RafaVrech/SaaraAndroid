@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
+    final Fragment fragment1 = new HomeFragment();
+    final Fragment fragment2 = new AulasFragment();
+    final Fragment fragment3 = new AnotacoesFragment();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragment1;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,44 +37,36 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     getSupportActionBar().setTitle("Home");
-                    Fragment homeFragment = HomeFragment.newInstance();
-                    openFragment(homeFragment);
+                    fm.beginTransaction().hide(active).show(fragment1).commit();
+                    active = fragment1;
                     return true;
                 case R.id.navigation_dashboard:
                     getSupportActionBar().setTitle("Aulas");
-                    Fragment aulasFragment = AulasFragment.newInstance();
-                    openFragment(aulasFragment);
+                    fm.beginTransaction().hide(active).show(fragment2).commit();
+                    active = fragment2;
                     return true;
                 case R.id.navigation_notifications:
                     getSupportActionBar().setTitle("Anotações");
-                    Fragment anotacoesFragment = AnotacoesFragment.newInstance();
-                    openFragment(anotacoesFragment);
+                    fm.beginTransaction().hide(active).show(fragment3).commit();
+                    active = fragment3;
                     return true;
             }
             return false;
         }
     };
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
+        fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
+        fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
+
         mTextMessage = findViewById(R.id.textView);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        getSupportActionBar().setTitle("Home");
-        Fragment homeFragment = HomeFragment.newInstance();
-        openFragment(homeFragment);
-
 
     }
 

@@ -32,7 +32,7 @@ public class AulasFragment extends Fragment {
 
         //Populate the products
         mProductList = new ArrayList<>();
-        mProductList.add(new Atividade(R.drawable.ic_327116,"Sistemas Operacionais","Predio H8 Sala 16", "Segundas feiras", "Prova e trabalho marcados"));
+       /* mProductList.add(new Atividade(R.drawable.ic_327116,"Sistemas Operacionais","Predio H8 Sala 16", "Segundas feiras", "Prova e trabalho marcados"));
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
@@ -46,7 +46,7 @@ public class AulasFragment extends Fragment {
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
         mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
-        mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));
+        mProductList.add(new Atividade(R.drawable.ic_327116,"Banco de dados","Predio H11 Sala 36", "Terças feiras", "Prova marcada"));*/
 
         //set adapter to recyclerview
         mAdapter = new AtividadeResumoAdapter(mProductList, this.getContext(),"titulo", "mensagem");

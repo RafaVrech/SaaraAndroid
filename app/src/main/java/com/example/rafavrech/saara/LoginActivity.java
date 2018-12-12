@@ -7,6 +7,7 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -337,6 +338,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         {
                             finish();
                             startActivity( new Intent(LoginActivity.this, MainActivity.class));
+
+                            SharedPreferences.Editor editor = getSharedPreferences("idUsuario", MODE_PRIVATE).edit();
+                            String idUsuario = response.getJSONObject("body").getString("usuarioId");
+                            editor.putString("idUsuario", idUsuario);
+                            editor.apply();
                         }else
                         {
                             Toast.makeText(LoginActivity.this, "Erro " + response.getInt("code") + ": " + response.getString("error"), Toast.LENGTH_LONG).show();

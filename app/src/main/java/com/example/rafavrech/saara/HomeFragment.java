@@ -1,6 +1,7 @@
 package com.example.rafavrech.saara;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
+    static HomeFragment homeFragment = null;
+
     private RecyclerView mRecyclerView;
     private AtividadeResumoAdapter mAdapter;
     private List<Atividade> listaItens;
@@ -38,7 +41,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         View thisView = inflater.inflate(R.layout.fragment_home, container, false);
+        setRetainInstance(true);
+        View thisView = getView() != null ? getView() :
+                inflater.inflate(R.layout.fragment_home, container, false);
 
         //getting the recyclerview from xml
         mRecyclerView = (RecyclerView) thisView.findViewById(R.id.idRecyclerView);
@@ -47,49 +52,18 @@ public class HomeFragment extends Fragment {
 
         //Populate the products
         listaItens = new ArrayList<>();
-/*
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));
-        listaItens.add(new Atividade(R.drawable.ic_327116,"Pineapple","Rs. 250", "500 gm", "2"));*/
 
-
-
-
-
-
-
-
-        Button botaoRefresh = (Button) thisView.findViewById(R.id.btnRefresh);
-        botaoRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = getActivity().getIntent();
-                getActivity().finish();
-                startActivity(intent);
-            }
-        });
-
-
-
-
-
-
-
-        RequestQueue queue = Volley.newRequestQueue( this.getContext());
+        final RequestQueue queue = Volley.newRequestQueue( this.getContext());
         String url ="http://10.0.2.2:8080/usuario/getMaterias";
 
         Map<String, String> parametrosReq = new HashMap<>();
 
-        parametrosReq.put("usuarioId", "1");
+        String idUsuario =  getActivity().getSharedPreferences("idUsuario", Context.MODE_PRIVATE)
+                .getString("idUsuario", "");
+
+        parametrosReq.put("usuarioId", idUsuario);
+
+
 
         CustomJsonObjectRequest request = new CustomJsonObjectRequest(
                 Request.Method.POST,
@@ -106,13 +80,19 @@ public class HomeFragment extends Fragment {
                             if(response.getInt("code") == 0)
                             {
                                 System.out.println("*****************************************************");
-                                System.out.println(response);//TODO PAREI AQUI
+                                System.out.println(response);
 
                                 JSONArray arrayMateriaUsuario = response.getJSONArray("body");
                                 for(int i= 0; i < arrayMateriaUsuario.length(); i++)
                                 {
-                                    String nome =((JSONObject) arrayMateriaUsuario.get(i)).getJSONObject("materia").getString("nome");
-                                    listaItens.add(new Atividade(R.drawable.ic_327116, nome,"Rs. 150", "1 kg", "5"));
+                                    JSONObject materiaUsuario = ((JSONObject) arrayMateriaUsuario.get(i));
+
+                                    String nomeMateria = materiaUsuario.getJSONObject("materiaDTO").getString("nome");
+                                    String mediaNotas = materiaUsuario.getString("media");
+
+                                    JSONArray notasMateria = materiaUsuario.getJSONArray("notaDTOList");
+
+                                    listaItens.add(new Atividade(R.drawable.ic_327116, nomeMateria,"Media: " + mediaNotas, notasMateria.length() + " notas", " Ver notas", notasMateria));
                                 }
 
                                 System.out.println("*****************************************************");
@@ -134,15 +114,15 @@ public class HomeFragment extends Fragment {
         });
         queue.add(request);
 
-
-
         //set adapter to recyclerview
         mAdapter = new AtividadeResumoAdapter(listaItens, this.getContext(), "titulo", "mensagem");
         mRecyclerView.setAdapter(mAdapter);
 
+        homeFragment = this;
+
         return thisView;
     }
     public static HomeFragment newInstance() {
-        return new HomeFragment();
+        return homeFragment == null ? new HomeFragment() : homeFragment;
     }
 }

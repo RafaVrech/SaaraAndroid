@@ -1,5 +1,6 @@
 package com.example.rafavrech.saara.view;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,18 +14,22 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class AtividadeResumoViewHolder extends RecyclerView.ViewHolder  {
-    ImageView imageProductImage;
-    TextView txtProductName;
-    TextView txtProductPrice;
-    TextView txtProductWeight;
-    TextView txtProductQty;
+    ImageView imgImagem;
+    TextView txtTitulo;
+    TextView txtSubTitulo;
+    TextView txtInfo;
+    TextView txtSubInfo;
+    ImageView iconeInfo;
+    CardView card;
 
     public AtividadeResumoViewHolder(View view) {
         super(view);
-        imageProductImage=view.findViewById(R.id.idProductImage);
-        txtProductName=view.findViewById(R.id.idNomeAtividade);
-        txtProductPrice = view.findViewById(R.id.idProductPrice);
-        txtProductWeight = view.findViewById(R.id.idProductWeight);
-        txtProductQty = view.findViewById(R.id.idProductQty);
+        imgImagem=view.findViewById(R.id.idImagem);
+        txtTitulo=view.findViewById(R.id.idTitulo);
+        txtSubTitulo = view.findViewById(R.id.idSubTitulo);
+        txtInfo = view.findViewById(R.id.idInfo);
+        txtSubInfo = view.findViewById(R.id.idSubInfo);
+        iconeInfo = view.findViewById(R.id.idIconeInfo);
+        card = view.findViewById(R.id.idCardView);
     }
 }

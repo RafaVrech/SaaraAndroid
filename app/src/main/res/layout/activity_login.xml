@@ -23,8 +23,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:srcCompat="@drawable/camelo"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ScrollView

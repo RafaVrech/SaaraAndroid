@@ -16,6 +16,9 @@ import com.example.rafavrech.saara.R;
 import com.example.rafavrech.saara.model.Atividade;
 import com.example.rafavrech.saara.view.AtividadeResumoViewHolder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -37,18 +40,39 @@ public class AtividadeResumoAdapter extends RecyclerView.Adapter<AtividadeResumo
 
     @Override
     public void onBindViewHolder(AtividadeResumoViewHolder holder, final int position) {
-        holder.getImageProductImage().setImageResource(atividades.get(position).getProductImage());
-        holder.getTxtProductName().setText(atividades.get(position).getProductName());
-        holder.getTxtProductPrice().setText(atividades.get(position).getProductPrice());
-        holder.getTxtProductWeight().setText(atividades.get(position).getProductWeight());
-        holder.getTxtProductQty().setText(atividades.get(position).getProductQty());
+        holder.getImgImagem().setImageResource(atividades.get(position).getImagem());
+        holder.getTxtTitulo().setText(atividades.get(position).getTitulo());
+        holder.getTxtSubTitulo().setText(atividades.get(position).getSubTitulo());
+        holder.getTxtSubInfo().setText(atividades.get(position).getSubInfo());
+        holder.getTxtInfo().setText(atividades.get(position).getInfo());
 
-        holder.getImageProductImage().setOnClickListener(new View.OnClickListener() {
+        holder.getCard().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = atividades.get(position).getProductName().toString();
-                Toast.makeText(context, productName + " is selected", Toast.LENGTH_SHORT).show();
-                DialogFragment dialog = new DialogAnotacao().newInstance("","");
+                String titulo = atividades.get(position).getTitulo();
+
+                Toast.makeText(context, "A disciplina " + titulo + " foi selecionada", Toast.LENGTH_SHORT).show();
+
+
+                String mensagem = atividades.get(position).getSubTitulo() + "\n\n" +
+                        "   " + atividades.get(position).getSubInfo() + ": \n";
+
+                for(int i = 0; i < atividades.get(position).getListaNotas().length(); i++)
+                {
+
+                    try {
+                        mensagem += "       Nota: " + atividades.get(position).getListaNotas().getJSONObject(i).getString("valor") + "\n";
+                        mensagem += "       Peso: " + atividades.get(position).getListaNotas().getJSONObject(i).getString("pesoNota") + "\n";
+                        mensagem += "       Tipo: " + atividades.get(position).getListaNotas().getJSONObject(i).getString("tipo") + "\n";
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if(i + 1 != atividades.get(position).getListaNotas().length())
+                        mensagem += "\n";
+                }
+
+                DialogFragment dialog = new DialogAnotacao().newInstance( titulo, mensagem);
 
                 dialog.show(((AppCompatActivity)context).getSupportFragmentManager(), "MyDialogFragmentTag");
 
